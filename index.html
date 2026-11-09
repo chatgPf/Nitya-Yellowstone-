@@ -3,26 +3,29 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#9f3f12" />
-    <title>Yellowstone National Park</title>
+    <meta name="description" content="Explore Yellowstone National Park through stunning landscapes, wildlife, geysers, and unforgettable adventures." />
+    <meta name="theme-color" content="#8d3d17" />
+    <title>Yellowstone National Park | Explore the Wild</title>
     <style>
       :root {
-        --orange: #e87524;
+        --bg: #fffaf5;
+        --bg-2: #f9efe6;
+        --panel: #ffffff;
+        --panel-2: #f6efe9;
+        --ink: #241b18;
+        --muted: #685a52;
+        --orange: #e87a2d;
         --orange-deep: #9f3f12;
-        --orange-soft: #f9d8b4;
-        --orange-light: #fff0df;
-        --ink: #2d211b;
-        --muted: #6c564d;
-        --paper: #fffaf4;
-        --card: #ffffff;
-        --line: #f0dfcf;
-        --shadow: 0 14px 35px rgba(76, 43, 19, 0.1);
-        --nav: rgba(79, 31, 11, 0.96);
+        --orange-soft: #f8d3a9;
+        --sand: #f1dfcf;
+        --line: rgba(121, 80, 50, 0.13);
+        --shadow: 0 18px 40px rgba(71, 38, 19, 0.12);
+        --nav: rgba(61, 26, 10, 0.9);
+        --success: #2d7d5d;
+        --glow: rgba(232, 122, 45, 0.24);
       }
 
-      * {
-        box-sizing: border-box;
-      }
+      * { box-sizing: border-box; }
 
       html {
         scroll-behavior: smooth;
@@ -32,9 +35,26 @@
       body {
         margin: 0;
         font-family: "Avenir Next", Avenir, "Segoe UI", Arial, sans-serif;
-        background: var(--paper);
+        background: var(--bg);
         color: var(--ink);
         line-height: 1.65;
+      }
+
+      body.dark-mode {
+        --bg: #171210;
+        --bg-2: #211915;
+        --panel: #2c231d;
+        --panel-2: #382d28;
+        --ink: #fef1e3;
+        --muted: #d7bea8;
+        --orange: #f19b57;
+        --orange-deep: #ffd0a1;
+        --orange-soft: #6a3a1d;
+        --sand: #3b2c26;
+        --line: rgba(255, 255, 255, 0.08);
+        --shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
+        --nav: rgba(18, 12, 9, 0.92);
+        --success: #88d4ad;
       }
 
       img {
@@ -43,300 +63,535 @@
         max-width: 100%;
       }
 
-      a {
-        color: inherit;
+      a { color: inherit; }
+
+      .container {
+        width: min(1180px, calc(100% - 32px));
+        margin: 0 auto;
       }
 
       nav {
         position: sticky;
         top: 0;
-        z-index: 50;
+        z-index: 999;
+        background: var(--nav);
+        backdrop-filter: blur(14px);
+        box-shadow: 0 10px 30px rgba(30, 15, 5, 0.18);
+      }
+
+      .nav-inner {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 16px 24px;
+        flex-wrap: wrap;
+        min-height: 72px;
+        padding: 8px 0;
+      }
+
+      .nav-brand {
+        font-weight: 900;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: #fff3e9;
+        font-size: 0.72rem;
+        margin-right: 6px;
+      }
+
+      .nav-links {
         display: flex;
         justify-content: center;
         align-items: center;
         flex-wrap: wrap;
-        gap: 10px 20px;
-        padding: 14px 20px;
-        background: var(--nav);
-        backdrop-filter: blur(12px);
-        box-shadow: 0 5px 22px rgba(30, 15, 5, 0.16);
+        gap: 16px 28px;
       }
 
-      nav a {
-        color: #fff8ef;
+      .nav-links a {
+        color: #fff9f3;
         text-decoration: none;
-        font-size: 0.9rem;
+        font-size: 0.82rem;
         font-weight: 700;
-        letter-spacing: 0.02em;
-        padding: 7px 2px;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        padding: 8px 2px;
         border-bottom: 2px solid transparent;
-        transition: color 0.2s ease, border-color 0.2s ease;
+        transition: all 0.2s ease;
       }
 
-      nav a:hover,
-      nav a:focus-visible {
-        color: #ffd09c;
-        border-color: #ffb56f;
+      .nav-links a:hover,
+      .nav-links a:focus-visible {
+        border-color: #ffbb78;
+        color: #ffd9aa;
+      }
+
+      .nav-actions {
+        margin-left: 10px;
       }
 
       button,
-      .hero-link {
+      .cta,
+      .secondary {
         border: none;
         border-radius: 999px;
-        background: var(--orange);
-        color: #fff;
-        padding: 12px 21px;
         font: inherit;
         font-weight: 800;
-        text-decoration: none;
+        letter-spacing: 0.01em;
         cursor: pointer;
-        box-shadow: 0 7px 18px rgba(177, 82, 20, 0.22);
-        transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.25s ease;
       }
 
+      .cta,
+      .secondary {
+        padding: 15px 24px;
+      }
+
+      .cta {
+        background: linear-gradient(135deg, var(--orange), #cf6b1d);
+        color: white;
+        box-shadow: 0 10px 28px rgba(177, 82, 20, 0.26);
+      }
+
+      .cta:hover,
+      .cta:focus-visible,
+      .secondary:hover,
+      .secondary:focus-visible,
       button:hover,
-      .hero-link:hover,
-      button:focus-visible,
-      .hero-link:focus-visible {
-        background: #c95c17;
+      button:focus-visible {
         transform: translateY(-2px);
-        box-shadow: 0 10px 22px rgba(177, 82, 20, 0.28);
+        box-shadow: 0 16px 28px rgba(177, 82, 20, 0.2);
+      }
+
+      .secondary {
+        background: rgba(255,255,255,0.08);
+        color: var(--ink);
+        border: 1px solid var(--line);
       }
 
       #themeToggle {
-        padding: 9px 16px;
-        font-size: 0.8rem;
+        padding: 10px 15px;
+        font-size: 0.78rem;
         background: #fff4e8;
-        color: #73300f;
+        color: #6f300d;
         box-shadow: none;
       }
 
-      #themeToggle:hover,
-      #themeToggle:focus-visible {
-        background: #ffd7b0;
+      body.dark-mode #themeToggle {
+        background: rgba(255,255,255,0.08);
+        color: #fbe5cf;
       }
 
       .hero {
         position: relative;
-        isolation: isolate;
-        min-height: min(690px, 76vh);
-        padding: 110px 24px 125px;
+        min-height: 760px;
         display: flex;
-        flex-direction: column;
-        justify-content: center;
         align-items: center;
+        background:
+          linear-gradient(115deg, rgba(20, 12, 9, 0.7), rgba(28, 18, 12, 0.28) 55%, rgba(24, 18, 14, 0.5)),
+          url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1800&q=80') center/cover no-repeat;
+        overflow: hidden;
+      }
+
+      .hero::after {
+        content: "";
+        position: absolute;
+        inset: auto 0 0 0;
+        height: 120px;
+        background: linear-gradient(to top, rgba(255, 250, 245, 1), rgba(255, 250, 245, 0));
+      }
+
+      body.dark-mode .hero::after {
+        background: linear-gradient(to top, rgba(23, 18, 16, 1), rgba(23, 18, 16, 0));
+      }
+
+      .hero-inner {
+        position: relative;
+        z-index: 1;
+        width: min(1180px, calc(100% - 32px));
+        margin: 0 auto;
+        padding: 100px 0 80px;
         color: white;
-        text-align: center;
-        background-image: linear-gradient(
-            110deg,
-            rgba(28, 17, 12, 0.73),
-            rgba(38, 22, 12, 0.28) 58%,
-            rgba(20, 15, 12, 0.44)
-          ),
-          url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1600&q=80");
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 7px 14px;
+        background: rgba(255,255,255,0.08);
+        border: 1px solid rgba(255,255,255,0.18);
+        border-radius: 999px;
+        font-size: 0.76rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        font-weight: 800;
       }
 
       .hero h1 {
-        max-width: 950px;
-        margin: 0 auto 15px;
-        font-size: clamp(42px, 7vw, 76px);
-        line-height: 1.08;
-        letter-spacing: -0.04em;
-        text-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
-      }
-
-      .hero h2 {
-        margin: 0 0 10px;
-        font-size: clamp(1.5rem, 3vw, 2.4rem);
-        font-weight: 700;
+        max-width: 760px;
+        margin: 20px 0 18px;
+        font-size: clamp(3rem, 7vw, 6rem);
+        line-height: 0.96;
+        letter-spacing: -0.05em;
       }
 
       .hero p {
-        max-width: 700px;
-        margin: 0 auto 28px;
-        font-size: clamp(1rem, 2vw, 1.3rem);
-        color: #fff8ef;
+        max-width: 640px;
+        margin: 0 0 28px;
+        font-size: clamp(1.05rem, 2vw, 1.38rem);
+        color: rgba(255,248,239,0.9);
       }
 
-      .hero-link {
-        display: inline-block;
+      .hero-actions {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        flex-wrap: wrap;
       }
 
-      .highlights {
+      .hero-meta {
         display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-template-columns: repeat(3, minmax(130px, 1fr));
         gap: 18px;
-        max-width: 980px;
-        margin: -52px auto 0;
-        padding: 0 20px;
-        position: relative;
-        z-index: 2;
+        max-width: 760px;
+        margin-top: 46px;
       }
 
-      .highlight {
-        background: var(--card);
-        padding: 26px 18px;
-        border-radius: 20px;
-        box-shadow: var(--shadow);
-        border: 1px solid var(--line);
+      .hero-stat {
+        background: rgba(255,255,255,0.08);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255,255,255,0.12);
+        border-radius: 18px;
+        padding: 18px 18px 16px;
       }
 
-      .highlight strong {
+      .hero-stat strong {
         display: block;
-        color: var(--orange-deep);
-        font-size: clamp(2rem, 4vw, 2.8rem);
+        font-size: clamp(1.6rem, 2vw, 2.3rem);
         line-height: 1.1;
       }
 
-      .highlight span {
-        color: var(--muted);
-        font-size: 0.82rem;
-        font-weight: 700;
-        letter-spacing: 0.04em;
+      .hero-stat span {
+        color: rgba(255,248,239,0.82);
+        font-size: 0.78rem;
+        letter-spacing: 0.08em;
         text-transform: uppercase;
       }
 
       section {
-        padding: 90px 22px;
-        scroll-margin-top: 85px;
+        padding: 104px 0;
       }
 
-      .section-heading {
-        max-width: 760px;
-        margin: 0 auto 36px;
-        text-align: center;
+      .section-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: end;
+        gap: 18px;
+        flex-wrap: wrap;
+        margin-bottom: 36px;
       }
 
-      .section-heading h2 {
-        color: var(--orange-deep);
-        font-size: clamp(2rem, 4vw, 2.8rem);
-        line-height: 1.15;
-        margin: 0 0 12px;
-      }
-
-      .section-heading p {
-        color: var(--muted);
-        font-size: 1.05rem;
+      .section-head h2 {
+        font-size: clamp(2.2rem, 4vw, 3rem);
+        line-height: 1.1;
+        letter-spacing: -0.04em;
         margin: 0;
       }
 
-      .cards {
+      .section-head p {
+        max-width: 620px;
+        margin: 0;
+        color: var(--muted);
+        font-size: 1.05rem;
+      }
+
+      .feature-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        grid-template-columns: repeat(3, minmax(0, 1fr));
         gap: 24px;
-        max-width: 1100px;
-        margin: 0 auto;
       }
 
-      .card {
-        overflow: hidden;
-        text-align: left;
-        background: var(--card);
+      .feature-card,
+      .trip-card,
+      .fact-list li,
+      .quote,
+      .visit-card,
+      .gallery-card {
+        background: var(--panel);
         border: 1px solid var(--line);
-        border-radius: 22px;
+        border-radius: 24px;
         box-shadow: var(--shadow);
-        transition: transform 0.25s ease, box-shadow 0.25s ease;
       }
 
-      .card:hover {
-        transform: translateY(-7px);
-        box-shadow: 0 20px 40px rgba(76, 43, 19, 0.16);
+      .feature-card {
+        overflow: hidden;
       }
 
-      .card img {
-        width: 100%;
-        height: 240px;
+      .feature-card img {
+        height: 260px;
         object-fit: cover;
       }
 
-      .card-content {
-        padding: 22px 22px 24px;
+      .feature-card .content {
+        padding: 24px 22px 26px;
       }
 
-      .card h3 {
+      .feature-card h3 {
         margin: 0 0 10px;
+        font-size: 1.45rem;
+        color: var(--orange-deep);
+      }
+
+      .feature-card p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .stats-strip {
+        margin-top: 46px;
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 18px;
+      }
+
+      .stat-box {
+        background: var(--panel-2);
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        padding: 24px 16px;
+        text-align: center;
+      }
+
+      .stat-box strong {
+        display: block;
+        font-size: clamp(1.6rem, 3vw, 2.4rem);
+        color: var(--orange-deep);
+      }
+
+      .stat-box span {
+        color: var(--muted);
+        font-weight: 700;
+        font-size: 0.8rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .experience-grid {
+        display: grid;
+        grid-template-columns: 1.3fr 1fr;
+        gap: 26px;
+      }
+
+      .trip-card {
+        padding: 26px;
+      }
+
+      .trip-card h3 {
+        margin: 0 0 18px;
+        font-size: clamp(1.7rem, 2vw, 2.3rem);
+        letter-spacing: -0.03em;
+      }
+
+      .trip-list {
+        display: grid;
+        gap: 18px;
+      }
+
+      .trip-item {
+        display: flex;
+        align-items: start;
+        gap: 16px;
+        padding: 18px 0;
+        border-top: 1px solid var(--line);
+      }
+
+      .trip-item:first-child {
+        border-top: none;
+        padding-top: 0;
+      }
+
+      .trip-item .day {
+        flex: none;
+        width: 52px;
+        height: 52px;
+        border-radius: 16px;
+        display: grid;
+        place-items: center;
+        font-weight: 900;
+        background: linear-gradient(135deg, var(--orange-soft), rgba(255,255,255,0));
+        color: var(--orange-deep);
+      }
+
+      .trip-item h4 {
+        margin: 0 0 4px;
+        font-size: 1.1rem;
+      }
+
+      .trip-item p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .quote {
+        position: relative;
+        padding: 28px;
+        background: linear-gradient(180deg, var(--panel), var(--panel-2));
+      }
+
+      .quote p {
+        margin: 0 0 22px;
+        font-size: 1.1rem;
+        color: var(--ink);
+      }
+
+      .quote strong {
+        display: block;
+        font-size: 1.05rem;
+      }
+
+      .quote span {
+        color: var(--muted);
+      }
+
+      .wildlife-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 24px;
+      }
+
+      .wildlife-card {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        overflow: hidden;
+        box-shadow: var(--shadow);
+      }
+
+      .wildlife-card img {
+        height: 270px;
+        object-fit: cover;
+      }
+
+      .wildlife-card .content {
+        padding: 22px 20px 24px;
+      }
+
+      .wildlife-card h3 {
+        margin: 0 0 8px;
         color: var(--orange-deep);
         font-size: 1.5rem;
       }
 
-      .card p {
+      .wildlife-card p {
         margin: 0;
         color: var(--muted);
       }
 
-      #about,
-      #attractions,
-      #geysers,
-      #wildlife,
-      #funfacts {
-        max-width: 1200px;
-        margin: 0 auto;
+      .visit-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 24px;
       }
 
-      #about p {
-        max-width: 780px;
-        margin: 0 auto;
-        text-align: center;
-        font-size: 1.08rem;
+      .visit-card {
+        padding: 24px 22px;
+      }
+
+      .visit-card .icon {
+        width: 54px;
+        height: 54px;
+        border-radius: 18px;
+        display: grid;
+        place-items: center;
+        font-size: 1.6rem;
+        background: var(--orange-soft);
+        color: var(--orange-deep);
+        margin-bottom: 14px;
+      }
+
+      .visit-card h3 {
+        margin: 0 0 8px;
+        font-size: 1.3rem;
+      }
+
+      .visit-card p {
+        margin: 0;
         color: var(--muted);
       }
 
-      #geysers > p,
-      #wildlife > p {
-        max-width: 760px;
-        margin: 0 auto 26px;
-        text-align: center;
+      .gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 18px;
+      }
+
+      .gallery-card {
+        overflow: hidden;
+      }
+
+      .gallery-card img {
+        height: 230px;
+        object-fit: cover;
+      }
+
+      .cta-panel {
+        background: linear-gradient(135deg, rgba(232,122,45,0.12), rgba(159,63,18,0.08));
+        border: 1px solid var(--line);
+        border-radius: 28px;
+        padding: clamp(26px, 4vw, 42px);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 18px;
+        flex-wrap: wrap;
+      }
+
+      .cta-panel h3 {
+        margin: 0 0 8px;
+        font-size: clamp(2rem, 4vw, 2.7rem);
+        letter-spacing: -0.05em;
+      }
+
+      .cta-panel p {
+        margin: 0;
         color: var(--muted);
         font-size: 1.05rem;
       }
 
-      #funfacts {
-        text-align: center;
-      }
-
-      #fact {
-        max-width: 760px;
-        margin: 0 auto 24px;
-        font-size: 1.2rem;
-        color: var(--ink);
-        font-weight: 600;
-      }
-
-      .dark-mode {
-        --paper: #201914;
-        --card: #30251e;
-        --ink: #fff1e4;
-        --muted: #d0bbaa;
-        --line: #594333;
-        --shadow: 0 14px 35px rgba(0, 0, 0, 0.25);
-        --nav: rgba(34, 19, 12, 0.96);
-      }
-
-      .dark-mode .highlight {
-        background: #30251e;
-      }
-
-      .dark-mode .highlight span {
-        color: #d0bbaa;
+      .cta-row {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
       }
 
       footer {
-        background: #fcebd8;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0), rgba(241,223,207,0.6));
+        padding: 16px 0 30px;
+      }
+
+      .footer-inner {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 18px;
+        flex-wrap: wrap;
+        padding-top: 24px;
+        border-top: 1px solid var(--line);
+      }
+
+      .footer-brand {
+        font-weight: 900;
+        font-size: 1.1rem;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
         color: var(--orange-deep);
-        text-align: center;
-        padding: 28px 20px 42px;
       }
 
-      footer h3 {
-        margin: 0 0 6px;
-        font-size: 1.7rem;
-      }
-
-      footer p {
-        margin: 0;
+      .footer-meta {
         color: var(--muted);
       }
 
@@ -344,290 +599,355 @@
         position: fixed;
         right: 22px;
         bottom: 22px;
-        width: 52px;
-        height: 52px;
+        width: 54px;
+        height: 54px;
         border-radius: 50%;
         display: none;
-        z-index: 100;
+        z-index: 1000;
+        background: linear-gradient(135deg, var(--orange), #c95d1e);
+        color: white;
         font-size: 1.5rem;
         padding: 0;
-        line-height: 1;
       }
 
-      @media (max-width: 650px) {
-        .highlights {
+      @media (max-width: 980px) {
+        .feature-grid,
+        .wildlife-grid,
+        .visit-grid,
+        .gallery-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .experience-grid {
           grid-template-columns: 1fr;
-          margin-top: 20px;
         }
 
-        nav {
-          gap: 8px 14px;
+        .stats-strip {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 700px) {
+        .nav-inner {
+          padding: 12px 0;
         }
 
-        section {
-          padding: 60px 16px;
+        .nav-links {
+          gap: 10px 18px;
         }
 
         .hero {
-          min-height: 520px;
-          padding-top: 90px;
+          min-height: 620px;
+        }
+
+        .hero-inner {
+          padding-top: 74px;
+        }
+
+        .hero-meta,
+        .feature-grid,
+        .wildlife-grid,
+        .visit-grid,
+        .gallery-grid,
+        .stats-strip {
+          grid-template-columns: 1fr;
+        }
+
+        .section-head {
+          align-items: start;
+        }
+
+        .cta-panel {
+          align-items: start;
         }
       }
     </style>
   </head>
   <body>
     <nav>
-      <a href="#about">About</a>
-      <a href="#attractions">Attractions</a>
-      <a href="#geysers">Geysers</a>
-      <a href="#wildlife">Wildlife</a>
-      <a href="#funfacts">Fun Facts</a>
-      <button id="themeToggle" type="button" aria-label="Toggle dark mode">Dark Mode</button>
+      <div class="container nav-inner">
+        <div class="nav-brand">Yellowstone</div>
+        <div class="nav-links">
+          <a href="#about">About</a>
+          <a href="#experiences">Experiences</a>
+          <a href="#wildlife">Wildlife</a>
+          <a href="#travel">Travel</a>
+          <a href="#gallery">Gallery</a>
+        </div>
+        <div class="nav-actions">
+          <button id="themeToggle" type="button" aria-label="Toggle dark mode">Dark Mode</button>
+        </div>
+      </div>
     </nav>
 
     <header class="hero">
-      <h1>Yellowstone National Park</h1>
-      <h2>Welcome to Yellowstone!</h2>
-      <p>
-        Discover amazing landscapes, colorful hot springs, powerful geysers,
-        and fascinating wildlife.
-      </p>
-      <a class="hero-link" href="#attractions">Explore the park</a>
+      <div class="hero-inner">
+        <div class="eyebrow">The world’s first national park</div>
+        <h1>Nature’s greatest spectacle.</h1>
+        <p>
+          Discover steaming geysers, wild valleys, towering waterfalls, and unforgettable wildlife across Yellowstone National Park.
+        </p>
+        <div class="hero-actions">
+          <a class="cta" href="#experiences">Plan Your Visit</a>
+          <a class="secondary" href="#about">Explore More</a>
+        </div>
+
+        <div class="hero-meta">
+          <div class="hero-stat">
+            <strong>1872</strong>
+            <span>Established</span>
+          </div>
+          <div class="hero-stat">
+            <strong>10,000+</strong>
+            <span>Geothermal features</span>
+          </div>
+          <div class="hero-stat">
+            <strong>4.9M</strong>
+            <span>Annual visitors</span>
+          </div>
+        </div>
+      </div>
     </header>
 
-    <div class="highlights" aria-label="Yellowstone highlights">
-      <div class="highlight">
-        <strong>1872</strong>
-        <span>Established</span>
-      </div>
-      <div class="highlight">
-        <strong>1st</strong>
-        <span>National park</span>
-      </div>
-      <div class="highlight">
-        <strong>Geysers</strong>
-        <span>Incredible geothermal wonders</span>
-      </div>
-    </div>
-
-    <section id="about">
-      <div class="section-heading">
-        <h2>About Yellowstone</h2>
-      </div>
-      <p>
-        Yellowstone National Park was established in 1872. It was the world’s
-        first national park and is famous for its geysers, hot springs,
-        forests, rivers, and wildlife.
-      </p>
-    </section>
-
-    <section id="attractions">
-      <div class="section-heading">
-        <h2>Amazing Attractions</h2>
-      </div>
-      <div class="cards">
-        <article class="card">
-          <img
-            src="https://images.unsplash.com/photo-1473448912268-2022ce9509d8?auto=format&fit=crop&w=900&q=80"
-            alt="Old Faithful geyser erupting"
-          />
-          <div class="card-content">
-            <h3>Old Faithful</h3>
+    <main>
+      <section id="about">
+        <div class="container">
+          <div class="section-head">
+            <h2>Yellowstone is a living masterpiece.</h2>
             <p>
-              A famous geyser that regularly erupts and shoots hot water high
-              into the air.
+              From the roar of Old Faithful to the quiet beauty of alpine forests, Yellowstone blends raw power and wild serenity in one unforgettable landscape.
             </p>
           </div>
-        </article>
 
-        <article class="card">
-          <img
-            src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=900&q=80"
-            alt="Grand Canyon of Yellowstone river and cliffs"
-          />
-          <div class="card-content">
-            <h3>Grand Canyon of Yellowstone</h3>
-            <p>
-              A beautiful canyon with steep cliffs, a dramatic river, and a
-              spectacular waterfall.
-            </p>
+          <div class="feature-grid">
+            <article class="feature-card">
+              <img src="https://images.unsplash.com/photo-1473448912268-2022ce9509d8?auto=format&fit=crop&w=1000&q=80" alt="Old Faithful geyser erupting" />
+              <div class="content">
+                <h3>Old Faithful</h3>
+                <p>One of Earth’s most iconic geysers, erupting on schedule and thrilling visitors for generations.</p>
+              </div>
+            </article>
+
+            <article class="feature-card">
+              <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1000&q=80" alt="Grand Prismatic Spring and colorful geothermal waters" />
+              <div class="content">
+                <h3>Grand Prismatic</h3>
+                <p>Vivid mineral pools create a surreal rainbow of color in one of the park’s most famous hot springs.</p>
+              </div>
+            </article>
+
+            <article class="feature-card">
+              <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1000&q=80" alt="Grand Canyon of Yellowstone with layered canyon walls" />
+              <div class="content">
+                <h3>Grand Canyon</h3>
+                <p>Golden canyon walls and dramatic river views reward hikers and photographers alike.</p>
+              </div>
+            </article>
           </div>
-        </article>
 
-        <article class="card">
-          <img
-            src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=900&q=80"
-            alt="Grand Prismatic Spring with rainbow colors"
-          />
-          <div class="card-content">
-            <h3>Grand Prismatic Spring</h3>
-            <p>
-              A stunning hot spring known for its bright rainbow-like colors and
-              vivid geothermal patterns.
-            </p>
+          <div class="stats-strip">
+            <div class="stat-box">
+              <strong>2.2M</strong>
+              <span>Acres protected</span>
+            </div>
+            <div class="stat-box">
+              <strong>300+</strong>
+              <span>Geysers</span>
+            </div>
+            <div class="stat-box">
+              <strong>67</strong>
+              <span>Species of mammals</span>
+            </div>
+            <div class="stat-box">
+              <strong>1</strong>
+              <span>Supervolcano caldera</span>
+            </div>
           </div>
-        </article>
-      </div>
-    </section>
+        </div>
+      </section>
 
-    <section id="geysers">
-      <div class="section-heading">
-        <h2>Geysers and Hot Springs</h2>
-      </div>
-      <p>
-        Yellowstone has more geysers than anywhere else on Earth, and its hot
-        springs display an incredible range of colors.
-      </p>
-
-      <div class="cards">
-        <article class="card">
-          <img
-            src="https://images.unsplash.com/photo-1511497584788-876760111969?auto=format&fit=crop&w=900&q=80"
-            alt="A geyser erupting in winter"
-          />
-          <div class="card-content">
-            <h3>Winter Geyser Eruption</h3>
-            <p>
-              A powerful geyser sends hot water and steam high above the snowy
-              ground.
-            </p>
+      <section id="experiences">
+        <div class="container">
+          <div class="section-head">
+            <h2>Plan the adventure of a lifetime.</h2>
+            <p>Whether you chase sunrise viewpoints or quiet trails, Yellowstone offers moments that feel both wild and deeply personal.</p>
           </div>
-        </article>
 
-        <article class="card">
-          <img
-            src="https://images.unsplash.com/photo-1482192505345-5655af888cc4?auto=format&fit=crop&w=900&q=80"
-            alt="Aerial view of Grand Prismatic Spring"
-          />
-          <div class="card-content">
-            <h3>Grand Prismatic from Above</h3>
-            <p>
-              An aerial view reveals the vivid blue center and colorful rings of
-              this famous spring.
-            </p>
+          <div class="experience-grid">
+            <div class="trip-card">
+              <h3>Recommended 3-day adventure</h3>
+              <div class="trip-list">
+                <div class="trip-item">
+                  <div class="day">1</div>
+                  <div>
+                    <h4>Arrival & geothermal wonders</h4>
+                    <p>Start at Old Faithful, explore nearby basins, and watch Yellowstone’s thermal activity come alive.</p>
+                  </div>
+                </div>
+                <div class="trip-item">
+                  <div class="day">2</div>
+                  <div>
+                    <h4>Wildlife & canyon views</h4>
+                    <p>Drive to the canyon, scan for bison and wolves, and walk scenic overlooks with stunning vistas.</p>
+                  </div>
+                </div>
+                <div class="trip-item">
+                  <div class="day">3</div>
+                  <div>
+                    <h4>Morning sunrise & lakes</h4>
+                    <p>Catch the first light over Yellowstone Lake and finish with a peaceful valley hike before departure.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <aside class="quote">
+              <p>“Yellowstone is the kind of place that reminds you how small you are, and how lucky you are to be there.”</p>
+              <strong>– Yellowstone Explorer</strong>
+              <span>North American wilderness guide</span>
+            </aside>
           </div>
-        </article>
-      </div>
-    </section>
+        </div>
+      </section>
 
-    <section id="wildlife">
-      <div class="section-heading">
-        <h2>Wildlife of Yellowstone</h2>
-      </div>
-      <p>
-        Yellowstone is home to some of North America’s most iconic wild animals.
-      </p>
-
-      <div class="cards">
-        <article class="card">
-          <img
-            src="https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=900&q=80"
-            alt="Grizzly bear in the wild"
-          />
-          <div class="card-content">
-            <h3>Grizzly Bears</h3>
-            <p>
-              Grizzly bears are powerful animals that live in Yellowstone’s
-              forests and mountains.
-            </p>
+      <section id="wildlife">
+        <div class="container">
+          <div class="section-head">
+            <h2>Wildlife in the wild.</h2>
+            <p>Yellowstone is one of the best places on Earth to watch iconic species roaming freely across open landscapes.</p>
           </div>
-        </article>
 
-        <article class="card">
-          <img
-            src="https://images.unsplash.com/photo-1546182990-dffeafbe841d?auto=format&fit=crop&w=900&q=80"
-            alt="American bison roaming grasslands"
-          />
-          <div class="card-content">
-            <h3>American Bison</h3>
-            <p>
-              Bison are large mammals that roam across Yellowstone’s grasslands
-              and valleys.
-            </p>
+          <div class="wildlife-grid">
+            <article class="wildlife-card">
+              <img src="https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=900&q=80" alt="Grizzly bear in a natural habitat" />
+              <div class="content">
+                <h3>Grizzly Bears</h3>
+                <p>Massive and powerful, these bears are a symbol of Yellowstone’s untamed wilderness.</p>
+              </div>
+            </article>
+
+            <article class="wildlife-card">
+              <img src="https://images.unsplash.com/photo-1546182990-dffeafbe841d?auto=format&fit=crop&w=900&q=80" alt="American bison in a meadow" />
+              <div class="content">
+                <h3>American Bison</h3>
+                <p>Roaming the grasslands in herds, bison shape the landscape and inspire awe at every turn.</p>
+              </div>
+            </article>
+
+            <article class="wildlife-card">
+              <img src="https://images.unsplash.com/photo-1474511320723-9a56873867b5?auto=format&fit=crop&w=900&q=80" alt="Gray wolf in the wild" />
+              <div class="content">
+                <h3>Gray Wolves</h3>
+                <p>Elusive and intelligent, wolves live in packs and quietly define the rhythms of the ecosystem.</p>
+              </div>
+            </article>
           </div>
-        </article>
+        </div>
+      </section>
 
-        <article class="card">
-          <img
-            src="https://images.unsplash.com/photo-1474511320723-9a56873867b5?auto=format&fit=crop&w=900&q=80"
-            alt="Gray wolf in the wild"
-          />
-          <div class="card-content">
-            <h3>Gray Wolves</h3>
-            <p>
-              Wolves live in family groups called packs and help maintain the
-              park’s natural ecosystem.
-            </p>
+      <section id="travel">
+        <div class="container">
+          <div class="section-head">
+            <h2>Essentials for your trip.</h2>
+            <p>Smart planning makes a big difference when exploring one of the planet’s most dramatic landscapes.</p>
           </div>
-        </article>
-      </div>
-    </section>
 
-    <section id="funfacts">
-      <div class="section-heading">
-        <h2>Fun Facts About Yellowstone</h2>
-      </div>
-      <p id="fact">Click the button to discover a fun fact!</p>
-      <button type="button" onclick="newFact()">Show Me a Fact</button>
-    </section>
+          <div class="visit-grid">
+            <div class="visit-card">
+              <div class="icon">⏰</div>
+              <h3>Best Time to Go</h3>
+              <p>Late spring through early fall delivers the warmest weather and best access to roads and trails.</p>
+            </div>
+
+            <div class="visit-card">
+              <div class="icon">🧭</div>
+              <h3>What to Pack</h3>
+              <p>Bring layers, sturdy shoes, binoculars, water, and plenty of patience for wildlife sightings.</p>
+            </div>
+
+            <div class="visit-card">
+              <div class="icon">📍</div>
+              <h3>Must-See Stops</h3>
+              <p>Old Faithful, Grand Prismatic, Yellowstone Lake, and the Grand Canyon of the Yellowstone are essential.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="gallery">
+        <div class="container">
+          <div class="section-head">
+            <h2>Snapshots from the wild.</h2>
+            <p>Yellowstone rewards curiosity with beauty at every turn, from warm mineral pools to snow-covered ridgelines.</p>
+          </div>
+
+          <div class="gallery-grid">
+            <article class="gallery-card">
+              <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80" alt="Yellowstone landscape with mountain and water" />
+            </article>
+            <article class="gallery-card">
+              <img src="https://images.unsplash.com/photo-1482192505345-5655af888cc4?auto=format&fit=crop&w=900&q=80" alt="Aerial view of natural hot springs" />
+            </article>
+            <article class="gallery-card">
+              <img src="https://images.unsplash.com/photo-1511497584788-876760111969?auto=format&fit=crop&w=900&q=80" alt="Geyser eruption in winter" />
+            </article>
+            <article class="gallery-card">
+              <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=900&q=80" alt="Rainbow-colored mineral pools" />
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="container">
+          <div class="cta-panel">
+            <div>
+              <h3>Ready to explore Yellowstone?</h3>
+              <p>Start planning your unforgettable trip to one of the world’s most breathtaking places.</p>
+            </div>
+            <div class="cta-row">
+              <a class="cta" href="#top">Book the Journey</a>
+              <a class="secondary" href="#gallery">See the Views</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
 
     <footer>
-      <h3>Yellowstone National Park</h3>
-      <p>Created for a school project</p>
+      <div class="container footer-inner">
+        <div class="footer-brand">Yellowstone</div>
+        <div class="footer-meta">Explore the wild. Discover the extraordinary.</div>
+      </div>
     </footer>
 
-    <button id="backToTop" type="button" onclick="goToTop()" aria-label="Back to top">↑</button>
+    <button id="backToTop" type="button" aria-label="Back to top">↑</button>
 
     <script>
-      const facts = [
-        "Yellowstone became a national park in 1872.",
-        "Yellowstone was the world's first national park.",
-        "Old Faithful is one of Yellowstone's most famous geysers.",
-        "Yellowstone is home to wild bison.",
-        "Wolves were reintroduced to Yellowstone in 1995.",
-        "Yellowstone has thousands of geothermal features.",
-        "Grand Prismatic Spring is famous for its rainbow colors."
-      ];
+      const body = document.body;
+      const themeToggle = document.getElementById('themeToggle');
+      const savedTheme = localStorage.getItem('yellowstoneTheme');
 
-      let lastFactIndex = -1;
-
-      function newFact() {
-        let randomIndex = Math.floor(Math.random() * facts.length);
-
-        if (facts.length > 1) {
-          while (randomIndex === lastFactIndex) {
-            randomIndex = Math.floor(Math.random() * facts.length);
-          }
-        }
-
-        lastFactIndex = randomIndex;
-        document.getElementById("fact").textContent = facts[randomIndex];
+      if (savedTheme === 'dark') {
+        body.classList.add('dark-mode');
+        themeToggle.textContent = 'Light Mode';
       }
 
-      function toggleDarkMode() {
-        document.body.classList.toggle("dark-mode");
-        const button = document.getElementById("themeToggle");
-        const isDark = document.body.classList.contains("dark-mode");
-        button.textContent = isDark ? "Light Mode" : "Dark Mode";
-        localStorage.setItem("yellowstoneTheme", isDark ? "dark" : "light");
-      }
-
-      const savedTheme = localStorage.getItem("yellowstoneTheme");
-      if (savedTheme === "dark") {
-        document.body.classList.add("dark-mode");
-        document.getElementById("themeToggle").textContent = "Light Mode";
-      }
-
-      document.getElementById("themeToggle").addEventListener("click", toggleDarkMode);
-
-      const backToTop = document.getElementById("backToTop");
-      window.addEventListener("scroll", function () {
-        backToTop.style.display = window.scrollY > 300 ? "block" : "none";
+      themeToggle.addEventListener('click', () => {
+        body.classList.toggle('dark-mode');
+        const isDark = body.classList.contains('dark-mode');
+        themeToggle.textContent = isDark ? 'Light Mode' : 'Dark Mode';
+        localStorage.setItem('yellowstoneTheme', isDark ? 'dark' : 'light');
       });
 
-      function goToTop() {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      }
+      const backToTop = document.getElementById('backToTop');
+      window.addEventListener('scroll', () => {
+        backToTop.style.display = window.scrollY > 350 ? 'block' : 'none';
+      });
+
+      backToTop.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
     </script>
   </body>
 </html>
