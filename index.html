@@ -1,1 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yellowstone National Park</title>
+<style>
+:root {
+  --orange: #e87524;
+  --orange-deep: #9f3f12;
+  --orange-light: #fff0df;
+  --ink: #33251d;
+  --muted: #75665b;
+  --paper: #fffaf4;
+  --card: #ffffff;
+  --line: #f0dfcf;
+  --shadow: 0 14px 35px rgba(76, 43, 19, .10);
+}
 
+* { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 85px;
+}
+
+body {
+  margin: 0;
+  font-family: "Avenir Next", Avenir, "Segoe UI", Arial, sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  text-align: center;
+  line-height: 1.65;
+}
+
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 22px;
+  padding: 13px 20px;
+  background: rgba(91, 37, 13, .96);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 5px 22px rgba(30, 15, 5, .16);
+}
+
+nav a {
+  color: #fff8ef;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: .02em;
+  padding: 7px 2px;
+  border-bottom: 2px solid transparent;
+  transition: color .2s, border-color .2s;
+}
+
+nav a:hover, nav a:focus-visible {
+  color: #ffd09c;
+  border-color: #ffb56f;
+}
+
+button, .hero-link {
+  border: 0;
+  border-radius: 999px;
+  background: var(--orange);
+  color: white;
+  padding: 12px 21px;
+  font: inherit;
+  font-weight: 800;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 0 7px 18px rgba(177, 82, 20, .22);
+  transition: transform .2s, background .2s, box-shadow .2s;
+}
+
+button:hover, .hero-link:hover {
+  background: #c95c17;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px rgba(177, 82, 20, .28);
+}
+
+#themeToggle {
+  padding: 9px 16px;
+  font-size: 13px;
+  background: #fff4e8;
+  color: #73300f;
+  box-shadow: none;
+}
+
+#themeToggle:hover { background: #ffd7b0; }
+
+.hero {
+  position: relative;
+  isolation: isolate;
+  min-height: min(690px, 76vh);
+  padding: 100px 24px 115px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  background:
+    linear-gradient(110deg, rgba(28, 17, 12, .56), rgba(38, 22, 12, .13) 60%, rgba(20, 15, 12, .35)),    );
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.hero h1 {
+  max-width: 950px;
+  margin: 0 auto 15px;
+  font-size: clamp(42px, 7vw, 76px);
+  line-height: 1.08;
+  letter-spacing: -.04em;
+  text-shadow: 0 4px 20px rgba(0,0,0,.35);
+}
+
+.hero p {
+  max-width: 680px;
+  margin: 0 auto 28px;
+  font-size: clamp(16px, 2vw, 21px);
+  color: #fff8ef;
+}
+
+.hero-link {
+  display: inline-block;
+}
+
+.highlights {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  max-width: 950px;
+  margin: -45px auto 0;
+  padding: 0 20px;
+  position: relative;
+  z-index: 2;
+}
+
+.highlight {
+  background: white;
+  padding: 22px 15px;
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+}
+
+.highlight strong {
+  display: block;
+  color: var(--orange-deep);
+  font-size: 28px;
+}
+
+.highlight span {
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+section {
+  padding: 85px 22px;
+  scroll-margin-top: 75px;
+}
+
+.section-heading {
+  max-width: 760px;
+  margin: 0 auto 35px;
+}
+
+.section-heading h2 {
+  color: var(--orange-deep);
+  font-size: clamp(30px, 4vw, 43px);
+  line-height: 1.15;
+  margin: 0 0 12px;
+}
+
+.section-heading p {
+  color: var(--muted);
+  font-size: 17px;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 24px;
+  max-width: 1100px;
+  margin: auto;
+}
+
+.card {
+  overflow: hidden;
+  text-align: left;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  box-shadow: var(--shadow);
+  transition: transform .25s, box-shadow .25s;
+}
+
+.card:hover {
+  transform: translateY(-7px);
+  box-shadow: 0 20px 40px rgba(76, 43, 19, .16);
+}
+
+.card img {
+  display: block;
+  width: 100%;
+  height: 230px;
+  object-fit: cover;
+}
+
+.card-content {
+  padding: 22px;
+}
+
+.card h3 {
+  margin: 0 0 9px;
+  color: var(--orange-deep);
+  font-size: 22px;
+}
+
+.card p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.dark-mode {
+  --paper: #201914;
+  --card: #30251e;
+  --ink: #fff1e4;
+  --muted: #d0bbaa;
+  --line: #594333;
+  --shadow: 0 14px 35px rgba(0,0,0,.25);
+}
+
+.dark-mode .highlight {
+  background: #30251e;
+}
+
+.dark-mode .highlight span {
+  color: #d0bbaa;
+}
+
+#backToTop {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  display: none;
+  z-index: 100;
+  font-size: 24px;
+  padding: 0;
+}
+
+@media (max-width: 650px) {
+  .highlights {
+    grid-template-columns: 1fr;
+    margin-top: 20px;
+  }
+
+  nav {
+    gap: 8px 14px;
+  }
+
+  section {
+    padding: 60px 16px;
+  }
+
+  .hero {
+    min-height: 520px;
+  }
+}
+</style></style>
+</head>
+<body>
+
+<nav>
+  <a href="#about">About</a>
+  <a href="#attractions">Attractions</a>
+  <a href="#geysers">Geysers</a>
+  <a href="#wildlife">Wildlife</a>
+  <a href="#funfacts">Fun Facts</a>
+  <button id="themeToggle" type="button"
+    onclick="toggleDarkMode()">Dark Mode</button>
+</nav>
+
+<div class="hero">
+  <h1>Yellowstone National Park</h1>
+  <h2>Welcome to Yellowstone!</h2>
+  <p>Discover amazing landscapes, colorful hot springs,
+  powerful geysers, and fascinating wildlife.</p>
+  <a class="hero-link" href="#attractions">Explore the park</a>
+</div>
+
+<div class="highlights" aria-label="Yellowstone highlights">
+  <div><strong>1872</strong><span>Established</span></div>
+  <div><strong>1st</strong><span>National park</span></div>
+  <div><strong>Geysers</strong>
+    <span>Incredible geothermal wonders</span></div>
+</div>
+
+<section id="about">
+  <h2>About Yellowstone</h2>
+  <p>
+    Yellowstone National Park was established in 1872.
+    It was the world's first national park. It is famous
+    for its geysers, hot springs, forests, rivers, and wildlife.
+  </p>
+</section>
+
+<section id="attractions">
+  <h2>Amazing Attractions</h2>
+  <div class="cards">
+
+    <div class="card">
+      <!-- Original Old Faithful photo goes here -->
+      <h3>Old Faithful</h3>
+      <p>A famous geyser that regularly erupts and shoots
+      hot water into the air.</p>
+    </div>
+
+    <div class="card">
+      <!-- Original Grand Canyon photo goes here -->
+      <h3>Grand Canyon of Yellowstone</h3>
+      <p>A beautiful canyon with steep cliffs and a
+      spectacular river and waterfall.</p>
+    </div>
+
+    <div class="card">
+      <!-- Original Grand Prismatic photo goes here -->
+      <h3>Grand Prismatic Spring</h3>
+      <p>A stunning hot spring known for its bright
+      rainbow-like colors.</p>
+    </div>
+
+  </div>
+</section>
+
+<section id="geysers">
+  <h2>Geysers and Hot Springs</h2>
+  <p>Yellowstone has more geysers than anywhere else on Earth.
+  Its hot springs have beautiful colors.</p>
+
+  <div class="cards">
+    <div class="card">
+      <!-- Original winter geyser photo goes here -->
+      <h3>Winter Geyser Eruption</h3>
+      <p>A powerful geyser sends hot water and steam
+      high above the snowy ground.</p>
+    </div>
+
+    <div class="card">
+      <!-- Original aerial spring photo goes here -->
+      <h3>Grand Prismatic from Above</h3>
+      <p>An aerial view shows the vivid blue center
+      and colorful rings of this famous hot spring.</p>
+    </div>
+  </div>
+</section><section id="wildlife">
+  <h2>Wildlife of Yellowstone</h2>
+  <p>Yellowstone is home to many amazing wild animals.</p>
+
+  <div class="cards">
+
+    <div class="card">
+      <!-- Original grizzly bear photo goes here -->
+      <h3>Grizzly Bears</h3>
+      <p>Grizzly bears are powerful animals that
+      live in Yellowstone's forests and mountains.</p>
+    </div>
+
+    <div class="card">
+      <!-- Original bison photo goes here -->
+      <h3>American Bison</h3>
+      <p>Bison are large mammals that roam across
+      Yellowstone's grasslands.</p>
+    </div>
+
+    <div class="card">
+      <!-- Original wolf photo goes here -->
+      <h3>Gray Wolves</h3>
+      <p>Wolves live and hunt in family groups
+      called packs.</p>
+    </div>
+
+  </div>
+</section>
+
+<section id="funfacts">
+  <h2>Fun Facts About Yellowstone</h2>
+  <p id="fact">
+    Click the button to discover a fun fact!
+  </p>
+
+  <button onclick="newFact()">
+    Show Me a Fact
+  </button>
+</section>
+
+<footer>
+  <h3>Yellowstone National Park</h3>
+  <p>Created for a school project</p>
+</footer>
+
+<button id="backToTop" onclick="goToTop()"
+  aria-label="Back to top">
+  ↑
+</button><script>
+
+// FUN FACTS
+
+const facts = [
+  "Yellowstone became a national park in 1872.",
+  "Yellowstone was the world's first national park.",
+  "Old Faithful is one of Yellowstone's most famous geysers.",
+  "Yellowstone is home to wild bison.",
+  "Wolves were reintroduced to Yellowstone in 1995.",
+  "Yellowstone has thousands of geothermal features.",
+  "Grand Prismatic Spring is famous for its rainbow colors."
+];
+
+function newFact() {
+  const randomIndex = Math.floor(Math.random() * facts.length);
+
+  document.getElementById("fact").textContent =
+    facts[randomIndex];
+}
+
+
+// DARK MODE
+
+function toggleDarkMode() {
+  document.body.classList.toggle("dark-mode");
+
+  const button = document.getElementById("themeToggle");
+
+  if (document.body.classList.contains("dark-mode")) {
+    button.textContent = "Light Mode";
+  } else {
+    button.textContent = "Dark Mode";
+  }
+}
+
+
+// BACK TO TOP BUTTON
+
+const backToTop = document.getElementById("backToTop");
+
+window.addEventListener("scroll", function() {
+  if (window.scrollY > 300) {
+    backToTop.style.display = "block";
+  } else {
+    backToTop.style.display = "none";
+  }
+});
+
+function goToTop() {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+}
+
+</script>
+
+</body>
+</html>
